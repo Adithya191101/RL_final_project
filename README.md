@@ -41,7 +41,7 @@ This project implements a reinforcement learning framework for robotic arm traje
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/robotic-arm-rl.git
+   git clone https://github.com/Adithya191101/RL_final_project
    cd robotic-arm-rl
    ```
 
