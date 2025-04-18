@@ -1,0 +1,56 @@
+# Configuration optimized for the robotic arm training issues
+# Based on analysis of movement problems and diagnostic tests
+
+# Environment settings
+environment:
+  robot: "kuka"  # Using Kuka robot which is included with PyBullet
+  render: false  # Disable rendering for faster training
+  max_episode_steps: 500  # Extended episode length for more time to reach goal
+  obstacle_count: 0  # No obstacles for basic learning
+  workspace_bounds: [[-0.5, 0.5], [-0.5, 0.5], [0.0, 1.0]]
+  
+  # Very achievable goal position and settings
+  goal_position: [0.2, 0.2, 0.3]  # Closer goal position (verified reachable)
+  initial_position: [0.0, 0.0, 0.4]  # Consistent starting position
+  goal_tolerance: 0.2  # Larger tolerance for easier success
+  
+  # CRITICALLY IMPORTANT: Much stronger action parameters
+  action_scale: 10.0  # Significantly increased for effective movement
+  action_force: 100.0  # Significantly increased to overcome physics issues
+  
+  # MDP settings (simplified approach)
+  use_smdp: false  # Simpler MDP approach
+  use_macro_actions: false
+  use_mpc: false
+  
+  # Stability settings
+  stabilize_base: true  # Keep base stable
+  normalize_observations: true  # Normalize observations for better learning
+  
+  # New stability parameters 
+  reduce_gravity: true  # Reduce gravity effect to help with stability
+  joint_damping: 0.5  # Add damping to joints for stability
+
+# RL algorithm settings
+rl:
+  algorithm: "ppo"
+  policy: "MlpPolicy"
+  learning_rate: 5.0e-4  # Slightly increased for faster learning
+  n_steps: 256  # Smaller batch for more frequent updates
+  batch_size: 64
+  gamma: 0.99
+  n_epochs: 10
+  ent_coef: 0.05  # Moderate exploration
+  total_timesteps: 200000  # Moderate training length
+  
+  # Rolling horizon settings (simplified)
+  horizon: 5
+  replan_freq: 2
+
+# Camera settings
+camera:
+  width: 640
+  height: 480
+  fov: 60
+  near_val: 0.1
+  far_val: 10.0
